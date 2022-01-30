@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <script src="https://kit.fontawesome.com/abebc1cff7.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+<style>
+    img{
+    height: 400px;
+    border-radius: 5px;
+    width: 800px;
+}
+.myh1,.myp1{
+    font-family: 'Roboto', sans-serif;
+    color: sandybrown;
+}
+.mybtn1{
+    height: 30px;
+    width: 40px;
+    background-image: linear-gradient(to right, red, orange);
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+table{
+    border: 3px dashed rgb(242, 108, 35);
+}
+body{
+    font-family: 'Roboto', sans-serif;
+
+background-color: #D7DCE1;
+}
+h1{
+color: #5DADE2;
+}
+
+table{
+    text-align: center;
+margin: 100px;
+height: 50vh;
+width: 77vw;
+}
+
+input{
+    height: 35px;
+    width: 150px;
+    cursor: pointer;
+margin-right: 20px;
+    border-radius: 5px;
+    border:3px solid orange
+}
+input:hover{
+    background-color: orange;
+    border:3px solid white
+}
+::placeholder{
+    text-align: center;
+    color: black;
+}
+
+button{
+    height: 30px;
+    width: 70px;
+color: black;
+border: 2px solid gray;
+border-radius: 5px;
+cursor: pointer;
+}
+button:hover{
+    border: 2px solid gray;
+    color: white;
+    background-color: black;
+
+}
+
+
+</style>
+</head>
+<body>
+    <center>
+<h1>Weather App!!</h1>
+
+
+    <table border="1" cellpadding="10px">
+        <tr>
+            <td><button class="mybtn1" onclick="prev()"><i class="fas fa-arrow-left"></i></button></td>
+            <td><img src="https://www.momondo.com/discover/wp-content/uploads/sites/260/2015/08/a318b6db-b47b-3f88-8805-5a7cb4610f9d.jpg"></td>
+                         
+                
+            <td><button class="mybtn1" onclick="next()"><i class="fas fa-arrow-right"></i></button></td>
+        </tr>
+    </table>
+
+
+    <input type="text" placeholder="What's your city?" id="city">
+    <button onclick="find()">Find</button>
+
+    <div id="Min">
+
+    </div>
+
+    <div id="Max">
+
+    </div>
+    <div id="Feel">
+
+    </div>
+    <div id="Wind">
+
+    </div>
+    <div id="Cloud">
+
+    </div>
+</center>
+    <script>
+function find(){
+    var city =document.getElementById('city').value
+    var url=`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=6335ab3930970f405e5bed398895a08c`
+    fetch(url).then(gotResponseFromServer).then(gotFinalResponseFromServer) 
+
+}
+
+function gotResponseFromServer(){
+return data.json()
+
+}
+function gotFinalResponseFromServer(finalResponse){
+                        
+console.log(finalResponse)
+document.getElementById('Max').innerHTML=finalResponse.main.temp_max + " kelvin (Max)"
+document.getElementById('Min').innerHTML=finalResponse.main.temp_min + " kelvin (Min)"
+document.getElementById('Feel').innerHTML="Feels like "+finalResponse.main.feels_like + " kelvin"
+document.getElementById('Wind').innerHTML=finalResponse.wind.speed + " wind speed" 
+document.getElementById('Cloud').innerHTML=finalResponse.clouds.all + " clouds" 
+
+}
+var myimg=["https://nvl1gttni2-flywheel.netdna-ssl.com/wp-content/uploads/2014/11/Wonderful-beachs-in-Cancun-s.jpg", "https://cdn.budgettravelbuff.com/wp-content/uploads/2019/11/ezgif.com-gif-maker-68.jpg", "https://www.momondo.com/discover/wp-content/uploads/sites/260/2015/08/a318b6db-b47b-3f88-8805-5a7cb4610f9d.jpg", "https://www.wearecentralpa.com/wp-content/uploads/sites/69/2021/01/AdobeStock_133146697.jpeg?w=2560&h=1440&crop=1", "https://images.theconversation.com/files/370685/original/file-20201123-13-x1rq79.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop", "https://cdn2.vectorstock.com/i/1000x1000/53/81/place-your-ads-here-rubber-stamp-vector-11775381.jpg"]
+
+
+
+var p=0;
+function next(){
+    if(p<myimg.length-1){
+        p++;
+    }
+    else{
+        p=0;
+    }
+    document.querySelector("img").src=myimg[p]
+}
+
+function prev(){
+    if(p>0){
+        p--;
+    }
+    else{
+        p=myimg.length-1
+    }
+
+    document.querySelector("img").src=myimg[p]
+}
+
+    </script>
+
+
+    
+</body>
+</html>
